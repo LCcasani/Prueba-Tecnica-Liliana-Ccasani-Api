@@ -70,7 +70,7 @@ namespace App.Ruleta.Api.Controllers
                 premio.ganaPremio = true;
                 premio.montoPremio = usuarioApuesta.montoApuesta;
                 premio.montoApostado = usuarioApuesta.montoApuesta;
-            }else if(resultado.color == usuarioApuesta.color)
+            }else if(resultado.color == usuarioApuesta.color && usuarioApuesta.numero == null && usuarioApuesta.tipoNumero == Enums.TipoNumero.NIGUNO)
             {
                 premio.ganaPremio = true;
                 premio.montoPremio = usuarioApuesta.montoApuesta/2;
