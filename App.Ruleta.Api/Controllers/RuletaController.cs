@@ -60,17 +60,40 @@ namespace App.Ruleta.Api.Controllers
             var usuarioApuesta = UsuarioApuesta.Instance;
 
             var premio = new Premio();
-            if(resultado.color == usuarioApuesta.color && resultado.numero == usuarioApuesta.numero)
+            if(usuarioApuesta.numero != null)
             {
-                premio.ganaPremio = true;
-                premio.montoPremio = usuarioApuesta.montoApuesta * 3;
-                premio.montoApostado = usuarioApuesta.montoApuesta;
-            }else if (resultado.color == usuarioApuesta.color && resultado.tipoNumero == usuarioApuesta.tipoNumero)
+                //si cumple if entonces gana premio
+                if(resultado.color == usuarioApuesta.color && resultado.numero == usuarioApuesta.numero)
+                {
+                    premio.ganaPremio = true;
+                    premio.montoPremio = usuarioApuesta.montoApuesta * 3;
+                    premio.montoApostado = usuarioApuesta.montoApuesta;
+                }
+                else//no acertó
+                {
+                    premio.ganaPremio = false;
+                    premio.montoPremio = usuarioApuesta.montoApuesta * -1;
+                    premio.montoApostado = usuarioApuesta.montoApuesta;
+                }
+                
+            }else if (usuarioApuesta.tipoNumero != Enums.TipoNumero.NIGUNO)
             {
-                premio.ganaPremio = true;
-                premio.montoPremio = usuarioApuesta.montoApuesta;
-                premio.montoApostado = usuarioApuesta.montoApuesta;
-            }else if(resultado.color == usuarioApuesta.color && usuarioApuesta.numero == null && usuarioApuesta.tipoNumero == Enums.TipoNumero.NIGUNO)
+
+                //si gana
+                if(resultado.color == usuarioApuesta.color && resultado.tipoNumero == usuarioApuesta.tipoNumero)
+                {
+                    premio.ganaPremio = true;
+                    premio.montoPremio = usuarioApuesta.montoApuesta;
+                    premio.montoApostado = usuarioApuesta.montoApuesta;
+                }
+                else //si pierde
+                {
+                    premio.ganaPremio = false;
+                    premio.montoPremio = usuarioApuesta.montoApuesta * -1;
+                    premio.montoApostado = usuarioApuesta.montoApuesta;
+                }
+               
+            }else if(resultado.color == usuarioApuesta.color)
             {
                 premio.ganaPremio = true;
                 premio.montoPremio = usuarioApuesta.montoApuesta/2;
